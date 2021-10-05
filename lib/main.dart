@@ -7,10 +7,10 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.green.shade200,
+        backgroundColor: Colors.teal.shade200,
         appBar: AppBar(
           backgroundColor: Colors.teal,
-          leading: Icon(Icons.contact_phone_outlined),
+          leading: Icon(Icons.arrow_back_outlined),
           title: Text(
             'Profile',
             style: TextStyle(fontSize: 40),
@@ -23,31 +23,48 @@ void main() {
               SizedBox(
                 height: 25,
               ),
-              Image.network(
-                'https://images.unsplash.com/photo-1632641326151-aa642d15dd1b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=464&q=80',
-                height: 200.0,
-                width: 200.0,
+              Image.asset(
+                'images/lash.jpg',
+                height: 200,
               ),
               SizedBox(
                 height: 100,
               ),
-              Text(
-                'Rokibul Hasan',
-                style: TextStyle(fontSize: 30),
+              Container(
+                width: 300,
+                color: Colors.black54,
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  'Rokibul Hasan',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 30, color: Colors.white),
+                ),
               ),
               SizedBox(
                 height: 25,
               ),
-              Text(
-                '@therokibul',
-                style: TextStyle(fontSize: 25),
+              Container(
+                width: 300,
+                color: Colors.black54,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  '@therokibul',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 25, color: Colors.white),
+                ),
               ),
               SizedBox(
                 height: 25,
               ),
-              Text(
-                'contact@rokibul.com',
-                style: TextStyle(fontSize: 20),
+              Container(
+                width: 300,
+                color: Colors.black54,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'contact@rokibul.com',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
               ),
             ],
           ),
