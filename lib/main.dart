@@ -10,7 +10,6 @@ void main() {
         backgroundColor: Colors.teal.shade200,
         appBar: AppBar(
           backgroundColor: Colors.teal,
-          leading: Icon(Icons.arrow_back_outlined),
           title: Text(
             'Profile',
             style: TextStyle(fontSize: 40),
@@ -18,14 +17,16 @@ void main() {
           centerTitle: true,
         ),
         body: Center(
-          child: Column(
+          child: ListView(
             children: [
               SizedBox(
                 height: 25,
               ),
-              Image.asset(
-                'images/lash.jpg',
-                height: 200,
+              CircleAvatar(
+                radius: 90,
+                backgroundImage: AssetImage('images/undraw.png'),
+                //   NetworkImage(
+                //       'https://cdn.pixabay.com/photo/2021/04/29/05/04/desert-6215516_960_720.jpg'),
               ),
               SizedBox(
                 height: 100,
@@ -34,6 +35,7 @@ void main() {
                 width: 300,
                 color: Colors.black54,
                 padding: EdgeInsets.all(20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Rokibul Hasan',
                   textAlign: TextAlign.center,
@@ -47,6 +49,7 @@ void main() {
                 width: 300,
                 color: Colors.black54,
                 padding: EdgeInsets.all(10),
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   '@therokibul',
                   textAlign: TextAlign.center,
@@ -60,8 +63,19 @@ void main() {
                 width: 300,
                 color: Colors.black54,
                 padding: EdgeInsets.all(10),
+                margin: EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'contact@rokibul.com',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
+              Container(
+                width: 300,
+                color: Colors.black54,
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
