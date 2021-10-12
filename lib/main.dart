@@ -1,89 +1,139 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.teal.shade200,
-        appBar: AppBar(
-          backgroundColor: Colors.teal,
-          title: Text(
-            'Profile',
-            style: TextStyle(fontSize: 40),
-          ),
-          centerTitle: true,
-        ),
-        body: Center(
-          child: ListView(
-            children: [
-              SizedBox(
-                height: 25,
-              ),
-              CircleAvatar(
-                radius: 90,
-                backgroundImage: AssetImage('images/undraw.png'),
-                //   NetworkImage(
-                //       'https://cdn.pixabay.com/photo/2021/04/29/05/04/desert-6215516_960_720.jpg'),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              Container(
-                width: 300,
-                color: Colors.black54,
-                padding: EdgeInsets.all(20),
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Rokibul Hasan',
-                  textAlign: TextAlign.center,
+        backgroundColor: Colors.teal,
+        body: ListView(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Settings',
+                  style: TextStyle(color: Colors.white),
+                ),
+                Text(
+                  'Profile',
                   style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Container(
-                width: 300,
-                color: Colors.black54,
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  '@therokibul',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 25, color: Colors.white),
+                Text(
+                  'Settings',
+                  style: TextStyle(color: Colors.white),
                 ),
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Container(
-                width: 300,
-                color: Colors.black54,
-                padding: EdgeInsets.all(10),
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'contact@rokibul.com',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
-              Container(
-                width: 300,
-                color: Colors.black54,
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry. \n Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
-            ],
-          ),
+              ],
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            CircleAvatar(
+              radius: 90,
+              backgroundImage: AssetImage('images/undraw.png'),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              'Victoria Robertson',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 30, color: Colors.black),
+            ),
+            Text(
+              'A mantra goes here',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16, color: Colors.black),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            ListTile(
+              leading: Icon(Icons.flutter_dash_outlined,
+                  size: 90, color: Colors.white),
+              title: Text('Header'),
+              subtitle: Text(
+                  "He'll want to use your yacht, and I don't want this thing smelling like fish."),
+            ),
+          ],
         ),
       ),
-    ),
-  );
+    );
+  }
 }
