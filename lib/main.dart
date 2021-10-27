@@ -1,106 +1,77 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  _MyAppState createState() => _MyAppState();
+}
+
+String name = '';
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          body: Center(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          child: Center(
             child: Column(
               children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      height: 250,
-                      color: Colors.green,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Settings',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        Text(
-                          'Profile',
-                          style: TextStyle(fontSize: 30, color: Colors.white),
-                        ),
-                        Text(
-                          'Settings',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                      top: 150,
-                      left: 100,
-                      child: CircleAvatar(
-                        radius: 100,
-                        backgroundImage: AssetImage('images/undraw.png'),
-                      ),
-                    )
-                  ],
+                Text(
+                  'Log In',
+                  style: TextStyle(fontSize: 40),
                 ),
-                SizedBox(
-                  height: 150,
+                Image(
+                  image: AssetImage('images/undraw_designer.png'),
+                
                 ),
                 Text(
-                  'Victoria Robertson',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 30, color: Colors.white),
+                  'Welcome $name',
+                  style: TextStyle(fontSize: 40),
                 ),
-                Text(
-                  'A mantra goes here',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  width: 350,
-                  padding: EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'User Name',
+                      hintText: 'Enter your Name',
+                    ),
+                    onChanged: (value){
+                      setState(() {
+                        name = value;
+                      });
+                    },
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'password',
+                      hintText: 'Enter your Password',
+                    ),
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: () {},
+                  minWidth: 300,
+                  color: Colors.green,
                   child: Text(
-                    'Post',
-                    // textAlign: TextAlign.center,
+                    'Log In',
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                ListTile(
-                  leading: Icon(Icons.flutter_dash_outlined,
-                      size: 90, color: Colors.white),
-                  title: Text(
-                    'Header',
-                    style: TextStyle(
+                      fontSize: 25,
                       color: Colors.white,
                     ),
                   ),
-                  subtitle: Text(
-                    "He'll want to use your yacht, and I don't want this thing smelling like fish.",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50),
                   ),
-                ),
+                )
               ],
             ),
           ),
