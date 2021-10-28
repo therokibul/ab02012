@@ -10,6 +10,7 @@ class MyApp extends StatefulWidget {
 }
 
 String name = '';
+bool show = true;
 
 class _MyAppState extends State<MyApp> {
   @override
@@ -27,7 +28,6 @@ class _MyAppState extends State<MyApp> {
                 ),
                 Image(
                   image: AssetImage('images/undraw_designer.png'),
-                
                 ),
                 Text(
                   'Welcome $name',
@@ -39,8 +39,11 @@ class _MyAppState extends State<MyApp> {
                     decoration: InputDecoration(
                       labelText: 'User Name',
                       hintText: 'Enter your Name',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
-                    onChanged: (value){
+                    onChanged: (value) {
                       setState(() {
                         name = value;
                       });
@@ -50,11 +53,26 @@ class _MyAppState extends State<MyApp> {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: TextField(
-                    obscureText: true,
+                    obscureText: show,
                     decoration: InputDecoration(
-                      labelText: 'password',
-                      hintText: 'Enter your Password',
-                    ),
+                        labelText: 'password',
+                        hintText: 'Enter your Password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        suffix: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              show = !show;
+                            });
+                          },
+                          child: Text(
+                            'Show',
+                            style: TextStyle(
+                              color: Colors.green,
+                            ),
+                          ),
+                        )),
                   ),
                 ),
                 MaterialButton(
