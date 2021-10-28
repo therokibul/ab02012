@@ -55,24 +55,20 @@ class _MyAppState extends State<MyApp> {
                   child: TextField(
                     obscureText: show,
                     decoration: InputDecoration(
-                        labelText: 'password',
-                        hintText: 'Enter your Password',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        suffix: TextButton(
-                          onPressed: () {
-                            setState(() {
-                              show = !show;
-                            });
-                          },
-                          child: Text(
-                            'Show',
-                            style: TextStyle(
-                              color: Colors.green,
-                            ),
-                          ),
-                        )),
+                      labelText: 'password',
+                      hintText: 'Enter your Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      suffix: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            show = !show;
+                          });
+                        },
+                        child: show ? Text('Show') : Text('Hide'),
+                      ),
+                    ),
                   ),
                 ),
                 MaterialButton(
