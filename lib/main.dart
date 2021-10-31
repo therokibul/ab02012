@@ -11,6 +11,7 @@ class MyApp extends StatefulWidget {
 
 String name = '';
 bool show = true;
+bool changedButton = false;
 
 class _MyAppState extends State<MyApp> {
   @override
@@ -26,9 +27,15 @@ class _MyAppState extends State<MyApp> {
                   'Log In',
                   style: TextStyle(fontSize: 40),
                 ),
-                Image(
-                  image: AssetImage('images/undraw_designer.png'),
-                ),
+                changedButton
+                    ? Image(
+                        image: AssetImage('images/undraw.png'),
+                        height: 200,
+                      )
+                    : Image(
+                        image: AssetImage('images/undraw_designer.png'),
+                        height: 200,
+                      ),
                 Text(
                   'Welcome $name',
                   style: TextStyle(fontSize: 40),
@@ -71,21 +78,34 @@ class _MyAppState extends State<MyApp> {
                     ),
                   ),
                 ),
-                MaterialButton(
-                  onPressed: () {},
-                  minWidth: 300,
-                  color: Colors.green,
-                  child: Text(
-                    'Log In',
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.white,
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      changedButton = !changedButton;
+                    });
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(
+                      seconds: 2,
                     ),
+                    width: changedButton ? 50 : 300,
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(150),
+                    ),
+                    child: changedButton
+                        ? Icon(
+                            Icons.done_outlined,
+                            color: Colors.white,
+                          )
+                        : Text(
+                            'Login',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                )
+                ),
               ],
             ),
           ),
