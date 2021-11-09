@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
                     )
                   : Text(
                       'data',
+                      textAlign: TextAlign.center,
                       textScaleFactor: 3,
                     ),
             ),
