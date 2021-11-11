@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'home.dart';
-import 'second_page.dart';
 
+import 'splash_screen.dart';
 
-
-void main() => runApp(MyApp());
+void main()=> runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({ Key? key }) : super(key: key);
@@ -12,15 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        initialRoute: "/",
-        routes: {
-          "/":(context) => HomePage(),
-          MyRoute.secondRoute: (context) => SecondPage(),
-        },
+      home: Scaffold(
+        body: SplashScreen(),
+      ),
     );
   }
-}
-
-class MyRoute{
-  static String secondRoute = '/second';
 }
