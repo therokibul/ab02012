@@ -8,73 +8,138 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
+      title: 'Calculator',
+      home: Calculator(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class Calculator extends StatefulWidget {
+  const Calculator({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _CalculatorState createState() => _CalculatorState();
 }
 
-var changeContainer = true;
+class _CalculatorState extends State<Calculator> {
+  String equation = '0';
+  String result = '0';
+  String expresstion = '';
+  double equationFontSize = 40;
+  double resultFontSize = 42;
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> curvedAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: Duration(seconds: 5),
-      vsync: this,
+  Widget buildButton(
+      String buttonText, double buttonHeight, Color buttonColor) {
+    return Container(
+      margin: EdgeInsets.all(5),
+      height: MediaQuery.of(context).size.height * 0.1 * buttonHeight,
+      decoration: BoxDecoration(
+        color: buttonColor,
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: MaterialButton(
+        onPressed: () {},
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+          ),
+        ),
+      ),
     );
-    _animationController.repeat();
-    curvedAnimation = CurvedAnimation(
-        parent: _animationController, curve: Curves.elasticInOut);
   }
 
   @override
   Widget build(BuildContext context) {
+    var sceenSize = MediaQuery.of(context).size;
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            RotationTransition(
-              turns: Tween<double>(begin: 0, end: 1).animate(curvedAnimation),
-              child: Icon(
-                Icons.star,
-                size: 200,
-              ),
-            ),
-            AnimatedContainer(
-              duration: Duration(
-                seconds: 5,
-              ),
-              height: changeContainer ? 300 : 200,
-              width: changeContainer ? 300 : 60,
-              color: Colors.teal,
-              curve: Curves.bounceInOut,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  changeContainer = !changeContainer;
-                });
-              },
-              child: Text('Do Animation'),
-            )
-          ],
+      backgroundColor: Color(0xff17171C),
+      appBar: AppBar(
+        title: Text(
+          'Calculator',
+          style: TextStyle(color: Colors.white),
         ),
+        backgroundColor: Color(0xff17171C),
+      ),
+      body: Column(
+        children: [
+          Container(
+            alignment: Alignment.centerRight,
+            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+            child: Text(
+              equation,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: equationFontSize,
+              ),
+            ),
+          ),
+          Container(
+            alignment: Alignment.centerRight,
+            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+            child: Text(
+              result,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: resultFontSize,
+              ),
+            ),
+          ),
+          Expanded(child: Divider()),
+          Row(
+            children: [
+              Container(
+                width: sceenSize.width * 0.75,
+                child: Table(
+                  children: [
+                    TableRow(children: [
+                      buildButton('C', 1, Color(0xff4E505F)),
+                      buildButton('←', 1, Color(0xff4E505F)),
+                      buildButton('÷', 1, Color(0xff4E505F)),
+                    ]),
+                    TableRow(children: [
+                      buildButton('7', 1, Color(0xff2E2F38)),
+                      buildButton('8', 1, Color(0xff2E2F38)),
+                      buildButton('9', 1, Color(0xff2E2F38)),
+                    ]),
+                    TableRow(children: [
+                      buildButton('4', 1, Color(0xff2E2F38)),
+                      buildButton('5', 1, Color(0xff2E2F38)),
+                      buildButton('6', 1, Color(0xff2E2F38)),
+                    ]),
+                    TableRow(children: [
+                      buildButton('1', 1, Color(0xff2E2F38)),
+                      buildButton('2', 1, Color(0xff2E2F38)),
+                      buildButton('3', 1, Color(0xff2E2F38)),
+                    ]),
+                    TableRow(children: [
+                      buildButton('.', 1, Color(0xff2E2F38)),
+                      buildButton('0', 1, Color(0xff2E2F38)),
+                      buildButton('00', 1, Color(0xff2E2F38)),
+                    ]),
+                  ],
+                ),
+              ),
+              Container(
+                width: sceenSize.width * 0.25,
+                child: Table(
+                  children: [
+                    TableRow(
+                        children: [buildButton('×', 1, Color(0xff4B5EFC))]),
+                    TableRow(
+                        children: [buildButton('-', 1, Color(0xff4B5EFC))]),
+                    TableRow(
+                        children: [buildButton('+', 1, Color(0xff4B5EFC))]),
+                    TableRow(
+                        children: [buildButton('=', 2.2, Color(0xff4B5EFC))]),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }
