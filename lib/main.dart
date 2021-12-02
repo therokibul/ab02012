@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,6 +30,47 @@ class _CalculatorState extends State<Calculator> {
   double equationFontSize = 40;
   double resultFontSize = 42;
 
+  buildOnPreses(String buttonText) {
+    setState(() {
+      if (buttonText == 'C') {
+        equation = '0';
+        result = '0';
+        equationFontSize = 50;
+        resultFontSize = 40;
+      } else if (buttonText == '←') {
+        equationFontSize = 50;
+        resultFontSize = 40;
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == '') {
+          equation = '0';
+        }
+      } else if (buttonText == '=') {
+        equationFontSize = 40;
+        resultFontSize = 50;
+        expresstion = equation;
+        expresstion = expresstion.replaceAll('÷', '/');
+        expresstion = expresstion.replaceAll('×', '*');
+
+        try {
+          Parser p = Parser();
+          Expression exp = p.parse(expresstion);
+          ContextModel cm = ContextModel();
+          result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+        } catch (e) {
+          result = 'Error';
+        }
+      } else {
+        equationFontSize = 50;
+        resultFontSize = 40;
+        if (equation == '0') {
+          equation = buttonText;
+        } else {
+          equation = equation + buttonText;
+        }
+      }
+    });
+  }
+
   Widget buildButton(
       String buttonText, double buttonHeight, Color buttonColor) {
     return Container(
@@ -39,7 +81,9 @@ class _CalculatorState extends State<Calculator> {
         borderRadius: BorderRadius.circular(24),
       ),
       child: MaterialButton(
-        onPressed: () {},
+        onPressed: () {
+          buildOnPreses(buttonText);
+        },
         child: Text(
           buttonText,
           style: TextStyle(
