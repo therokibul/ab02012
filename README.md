@@ -9,3 +9,5 @@ Batch ID: AB2-012
 Flutter Android build
 
 flutter build apk --split-per-abi
+
+![Screenshot](https://user-images.githubusercontent.com/29985416/144399247-18ebefa5-4747-46ca-a32e-f724a7f01a26.png)
