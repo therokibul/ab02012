@@ -51,7 +51,7 @@ class _LetsTestHTTPState extends State<LetsTestHTTP> {
       body: Center(
         child: FutureBuilder(
           future: getRequest(),
-          builder: (BuildContext contex, AsyncSnapshot snapshot) {
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.data == null) {
               return CircularProgressIndicator();
             } else {
@@ -62,7 +62,7 @@ class _LetsTestHTTPState extends State<LetsTestHTTP> {
                       height: 200,
                       margin: EdgeInsets.all(5),
                       decoration: BoxDecoration(
-                          color: index % 2 == 0 ? Colors.red : Colors.green),
+                          color:  Colors.green),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
