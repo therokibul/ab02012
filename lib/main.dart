@@ -1,5 +1,7 @@
+import 'dart:convert';
+import 'package:ab02012/models/user.dart';
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
+import 'package:http/http.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,181 +11,81 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Calculator',
-      home: Calculator(),
+      home: LetsTestHTTP(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class Calculator extends StatefulWidget {
-  const Calculator({Key? key}) : super(key: key);
+class LetsTestHTTP extends StatefulWidget {
+  const LetsTestHTTP({Key? key}) : super(key: key);
 
   @override
-  _CalculatorState createState() => _CalculatorState();
+  _LetsTestHTTPState createState() => _LetsTestHTTPState();
 }
 
-class _CalculatorState extends State<Calculator> {
-  String equation = '0';
-  String result = '0';
-  String expresstion = '';
-  double equationFontSize = 40;
-  double resultFontSize = 42;
+class _LetsTestHTTPState extends State<LetsTestHTTP> {
+  
+  Future getRequest() async {
+    final response =
+        await get(Uri.https('jsonplaceholder.typicode.com', 'users'));
+    var responseData = json.decode(response.body);
 
-  buildOnPreses(String buttonText) {
-    setState(() {
-      if (buttonText == 'C') {
-        equation = '0';
-        result = '0';
-        equationFontSize = 50;
-        resultFontSize = 40;
-      } else if (buttonText == '←') {
-        equationFontSize = 50;
-        resultFontSize = 40;
-        equation = equation.substring(0, equation.length - 1);
-        if (equation == '') {
-          equation = '0';
-        }
-      } else if (buttonText == '=') {
-        equationFontSize = 40;
-        resultFontSize = 50;
-        expresstion = equation;
-        expresstion = expresstion.replaceAll('÷', '/');
-        expresstion = expresstion.replaceAll('×', '*');
+    List users = [];
 
-        try {
-          Parser p = Parser();
-          Expression exp = p.parse(expresstion);
-          ContextModel cm = ContextModel();
-          result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-        } catch (e) {
-          result = 'Error';
-        }
-      } else {
-        equationFontSize = 50;
-        resultFontSize = 40;
-        if (equation == '0') {
-          equation = buttonText;
-        } else {
-          equation = equation + buttonText;
-        }
-      }
-    });
-  }
+    for (var index in responseData) {
+      User user = User(
+          name: index['name'],
+          username: index['username'],
+          email: index['email'],
+          phone: index['phone']);
 
-  Widget buildButton(
-      String buttonText, double buttonHeight, Color buttonColor) {
-    return Container(
-      margin: EdgeInsets.all(5),
-      height: MediaQuery.of(context).size.height * 0.1 * buttonHeight,
-      decoration: BoxDecoration(
-        color: buttonColor,
-        borderRadius: BorderRadius.circular(24),
-      ),
-      child: MaterialButton(
-        onPressed: () {
-          buildOnPreses(buttonText);
-        },
-        child: Text(
-          buttonText,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-          ),
-        ),
-      ),
-    );
+      users.add(user);
+    }
+    return users;
   }
 
   @override
   Widget build(BuildContext context) {
-    var sceenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xff17171C),
-      appBar: AppBar(
-        title: Text(
-          'Calculator',
-          style: TextStyle(color: Colors.white),
+      body: Center(
+        child: FutureBuilder(
+          future: getRequest(),
+          builder: (BuildContext contex, AsyncSnapshot snapshot) {
+            if (snapshot.data == null) {
+              return CircularProgressIndicator();
+            } else {
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: 200,
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          color: index % 2 == 0 ? Colors.red : Colors.green),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            snapshot.data[index].name,
+                            textScaleFactor: 2,
+                          ),
+                          Text(
+                            snapshot.data[index].username,
+                          ),
+                          Text(
+                            snapshot.data[index].email,
+                          ),
+                          Text(
+                            snapshot.data[index].phone,
+                          ),
+                        ],
+                      ),
+                    );
+                  });
+            }
+          },
         ),
-        backgroundColor: Color(0xff17171C),
-      ),
-      body: Column(
-        children: [
-          Container(
-            alignment: Alignment.centerRight,
-            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: Text(
-              equation,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: equationFontSize,
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: Text(
-              result,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: resultFontSize,
-              ),
-            ),
-          ),
-          Expanded(child: Divider()),
-          Row(
-            children: [
-              Container(
-                width: sceenSize.width * 0.75,
-                child: Table(
-                  children: [
-                    TableRow(children: [
-                      buildButton('C', 1, Color(0xff4E505F)),
-                      buildButton('←', 1, Color(0xff4E505F)),
-                      buildButton('÷', 1, Color(0xff4E505F)),
-                    ]),
-                    TableRow(children: [
-                      buildButton('7', 1, Color(0xff2E2F38)),
-                      buildButton('8', 1, Color(0xff2E2F38)),
-                      buildButton('9', 1, Color(0xff2E2F38)),
-                    ]),
-                    TableRow(children: [
-                      buildButton('4', 1, Color(0xff2E2F38)),
-                      buildButton('5', 1, Color(0xff2E2F38)),
-                      buildButton('6', 1, Color(0xff2E2F38)),
-                    ]),
-                    TableRow(children: [
-                      buildButton('1', 1, Color(0xff2E2F38)),
-                      buildButton('2', 1, Color(0xff2E2F38)),
-                      buildButton('3', 1, Color(0xff2E2F38)),
-                    ]),
-                    TableRow(children: [
-                      buildButton('.', 1, Color(0xff2E2F38)),
-                      buildButton('0', 1, Color(0xff2E2F38)),
-                      buildButton('00', 1, Color(0xff2E2F38)),
-                    ]),
-                  ],
-                ),
-              ),
-              Container(
-                width: sceenSize.width * 0.25,
-                child: Table(
-                  children: [
-                    TableRow(
-                        children: [buildButton('×', 1, Color(0xff4B5EFC))]),
-                    TableRow(
-                        children: [buildButton('-', 1, Color(0xff4B5EFC))]),
-                    TableRow(
-                        children: [buildButton('+', 1, Color(0xff4B5EFC))]),
-                    TableRow(
-                        children: [buildButton('=', 2.2, Color(0xff4B5EFC))]),
-                  ],
-                ),
-              )
-            ],
-          )
-        ],
       ),
     );
   }
