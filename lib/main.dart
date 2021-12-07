@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:ab02012/models/user.dart';
+import 'dart:js';
+import 'package:ab02012/models/post.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -25,24 +26,24 @@ class LetsTestHTTP extends StatefulWidget {
 }
 
 class _LetsTestHTTPState extends State<LetsTestHTTP> {
-  
-  Future getRequest() async {
-    final response =
-        await get(Uri.https('jsonplaceholder.typicode.com', 'users'));
-    var responseData = json.decode(response.body);
 
-    List users = [];
+ Future getData()async{
 
-    for (var index in responseData) {
-      User user = User(
-          name: index['name'],
-          username: index['username'],
-          email: index['email'],
-          phone: index['phone']);
+  final response = await get(Uri.https('jsonplaceholder.typicode.com', 'posts'));
 
-      users.add(user);
-    }
-    return users;
+      var responseData = json.decode(response.body);
+
+      List posts=[];
+
+      for(var index in responseData){
+        Post post = Post(
+          
+          title: index['title'],
+          body:  index['body'],
+        );
+        posts.add(post);
+      }
+      return posts;
   }
 
   @override
@@ -50,42 +51,36 @@ class _LetsTestHTTPState extends State<LetsTestHTTP> {
     return Scaffold(
       body: Center(
         child: FutureBuilder(
-          future: getRequest(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
-              return CircularProgressIndicator();
-            } else {
+          future: getData(),
+          builder: (BuildContext context, AsyncSnapshot snapshot){
+            if(
+              snapshot.data == null
+            ){
+                return Text('Loading..');
+            }else{
               return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 200,
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color:  Colors.green),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            snapshot.data[index].name,
-                            textScaleFactor: 2,
-                          ),
-                          Text(
-                            snapshot.data[index].username,
-                          ),
-                          Text(
-                            snapshot.data[index].email,
-                          ),
-                          Text(
-                            snapshot.data[index].phone,
-                          ),
-                        ],
-                      ),
-                    );
-                  });
+                itemCount: snapshot.data.length,
+                
+                itemBuilder: (context, index){
+                  return SizedBox(
+                    height: 250,
+                    child: Column(
+                      children: [
+                          Text(snapshot.data[index].title),
+                          Text(snapshot.data[index].body),
+                          
+                      ],
+                    ),
+                  );
+                }
+                
+                
+                 );
             }
-          },
-        ),
+          }
+          
+          
+          ),
       ),
     );
   }
