@@ -1,3 +1,6 @@
+import 'package:ab02012/pages/home.dart';
+import 'package:ab02012/pages/second.dart';
+import 'package:ab02012/pages/third.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -8,48 +11,54 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: GridViewtest(),
+      home: CoffeApp(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class GridViewtest extends StatelessWidget {
-  GridViewtest({Key? key}) : super(key: key);
-  List counter = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
+class CoffeApp extends StatefulWidget {
+  CoffeApp({Key? key}) : super(key: key);
+
+  @override
+  State<CoffeApp> createState() => _CoffeAppState();
+}
+
+class _CoffeAppState extends State<CoffeApp> {
+  List listBody = [
+    Home(),
+    Second(),
+    Third(),
   ];
-  
+
+  var currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 300,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
+      body: listBody[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: currentIndex,
+        onTap: (index){
+          setState(() {
+            currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-          itemCount: 10,
-          itemBuilder: (BuildContext context, index) {
-            return Container(
-              alignment: Alignment.center,
-              color: Colors.green,
-              height: 200,
-              child: Text(
-                counter[index],
-                textScaleFactor: 3,
-              ),
-            );
-          }),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.card_giftcard_outlined),
+            label: 'Gift',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.summarize_outlined),
+            label: 'Summar',
+          ),
+        ],
+      ),
     );
   }
 }
