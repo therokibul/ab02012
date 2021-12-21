@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   Home({
@@ -29,7 +30,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     getData();
-
   }
 
   @override
@@ -41,8 +41,12 @@ class _HomeState extends State<Home> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListTile(
+                  onTap: () {
+                    Get.toNamed('/details', arguments: {
+                      'covidData': covidData[index],
+                    });
+                  },
                   leading: Image.network(
-                    
                     covidData[index]["countryInfo"]["flag"],
                     height: 80,
                     width: 90,
