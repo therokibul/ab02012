@@ -1,4 +1,3 @@
-import 'package:ab02012/pages/details.dart';
 import 'pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +15,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       getPages: [
         GetPage(name: '/home', page: ()=> Home()),
-        GetPage(name: '/details', page: ()=> Details()),
       ],
     );
   }
