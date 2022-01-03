@@ -1,57 +1,49 @@
-import 'package:ab02012/controller/user_controller.dart';
-import 'package:ab02012/pages/second.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:ab02012/controller/counter_controler.dart';
 
-class Home extends StatelessWidget {
+import 'package:ab02012/pages/cart.dart';
+import 'package:ab02012/widgets/appbar.dart';
+import 'package:flutter/material.dart';
+import 'package:ab02012/models/product_model.dart';
+
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: [
-              GetBuilder<CounterController>(
-                  init: CounterController(),
-                  builder: (cnxt) {
-                    return Text(
-                      '${cnxt.count}',
-                      textScaleFactor: 3,
-                    );
-                  }),
-              GetX<UserController>(
-                  init: UserController(),
-                  builder: (cnxt) {
-                    return Text('Name:  ${cnxt.user.value.name}',textScaleFactor: 2,);
-                  }),
-              Obx(() {
-                return Text(
-                    'Stored Count: ${Get.find<UserController>().user.value.count}',textScaleFactor: 2,);
-              }),
-              ElevatedButton(
-                  onPressed: () {
-                    Get.find<CounterController>().reset();
-                  },
-                  child: Text('rest')),
-              ElevatedButton(onPressed: () {
-                Get.find<UserController>().updateUser(Get.find<CounterController>().count);
-              }, child: Text('Update')),
-
-              ElevatedButton(onPressed: (){
-                Get.to(()=>Second());
-              }, child: Text(' Go To Second Page')),
-            ],
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'ZeroSun',),
+      body: ListView.separated(
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () {
+                setState(() {
+             var contain = cartList.where((element) => element.name==productList[index].name);
+                    if(contain.isEmpty){
+                      cartList.add(productList[index]);
+                    }else{
+                     var cartIndex = cartList.indexWhere((element) => element.name==productList[index].name);
+                     cartList[cartIndex].counter= cartList[cartIndex].counter+1;
+                     print(cartList[cartIndex].counter);
+                    }
+                });
+              },
+              title: Text(productList[index].name),
+              trailing: Text('\$${productList[index].price}'),
+            );
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
+          },
+          itemCount: productList.length),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.find<CounterController>().increment();
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>Cart()));
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.shopping_cart_outlined),
       ),
     );
   }
