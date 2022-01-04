@@ -2,89 +2,84 @@ import 'package:ab02012/pages/home.dart';
 import 'package:ab02012/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  Login({Key? key}) : super(key: key);
+enum MobileVarificationState {
+  SHOW_MOBILE_FORM_STATE,
+  SHOW_OTP_FORM_STATE,
+}
 
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  MobileVarificationState currentState =
+      MobileVarificationState.SHOW_MOBILE_FORM_STATE;
   final phoneController = TextEditingController();
   final otpController = TextEditingController();
+
+  bool showLoading = false;
+
+  getMobileFormWidget(context) {
+    return Center(
+      child: Column(
+        children: [
+          TextField(
+            controller: phoneController,
+            decoration: InputDecoration(
+              hintText: 'Phone Number',
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          ElevatedButton(
+            onPressed: () async {},
+            child: Text('Send'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  getOtpFormWidget(context) {
+    return Column(
+      children: [
+        TextField(
+          controller: otpController,
+          decoration: InputDecoration(
+            hintText: 'Enter OTP',
+          ),
+        ),
+        SizedBox(
+          height: 16,
+        ),
+        ElevatedButton(
+          onPressed: () async {},
+          child: Text('Verify'),
+        ),
+      ],
+    );
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'ZeroSun',
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Login / Singup',
-              textScaleFactor: 2,
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            TextField(
-              controller: phoneController,
-              decoration: InputDecoration(
-                hintText: 'Enter Your Phone Number',
-                // prefix: Text('+88'),
-            
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            MaterialButton(
-              onPressed: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('Enter OTP'),
-                        actions: [
-                          Expanded(
-                            child: TextField(
-                              controller: otpController,
-                              decoration: InputDecoration(
-                                hintText: 'Enter OTP',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          MaterialButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()));
-                            },
-                            color: Colors.black,
-                            child: Text(
-                              'SEND',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ],
-                      );
-                    });
-              },
-              color: Colors.black,
-              child: Text(
-                'VERIFy',
-                style: TextStyle(color: Colors.white),
-              ),
-            )
-          ],
+      key: _scaffoldkey,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: showLoading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : currentState == MobileVarificationState.SHOW_MOBILE_FORM_STATE
+                  ? getMobileFormWidget(context)
+                  : getOtpFormWidget(context),
         ),
       ),
     );
