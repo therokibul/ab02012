@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
 
   bool showLoading = false;
  late String verificationId;
-void SignInWithPhone AuthCredential(PhoneAuthCredential phoneAuthCredential) async {
+void SignInWithPhoneAuthCredential(PhoneAuthCredential phoneAuthCredential) async {
   setState(() {
     showLoading = false;
   });
