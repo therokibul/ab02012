@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "593850949732",
+    "project_id": "zerosun-4a0cc",
+    "storage_bucket": "zerosun-4a0cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593850949732:android:1311a399b133bc49e0bf71",
+        "android_client_info": {
+          "package_name": "com.example.ab02012"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593850949732-0no44r9kodk548967ukhep4g5ka5g0it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRIhnIKqoRWJzCCtbw6FTnP8q-xXJ37vM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593850949732-0no44r9kodk548967ukhep4g5ka5g0it.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
