@@ -1,10 +1,10 @@
-import 'package:ab02012/pages/cart.dart';
-import 'package:ab02012/pages/login.dart';
+
+import 'package:ab02012/home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'pages/home.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       //   primarySwatch: Colors.blue,
       // ),
      
-      home: Login(),
+      home: Home(),
       
     );
   }
